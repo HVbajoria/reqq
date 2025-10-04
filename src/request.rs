@@ -44,6 +44,11 @@ impl Request {
             .to_owned()
     }
 
+    /// Returns the file path of the request.
+    pub fn file_path(&self) -> &str {
+        &self.fpath
+    }
+
     fn load(&mut self) -> Result<()> {
         if self.fstr.is_none() {
             let fstr = fs::read_to_string(self.fpath.clone())?;

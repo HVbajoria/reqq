@@ -85,6 +85,20 @@ impl<'a> Reqq<'a> {
         Ok(result)
     }
 
+    /// Opens a request file in $EDITOR.
+    pub fn edit(&self, req_name: &str) -> Result<()> {
+        let req = self.get_req(req_name)?;
+        let editor = std::env::var("EDITOR").unwrap_or_else(|_| "vi".to_string());
+        let status = std::process::Command::new(editor)
+            .arg(req.file_path())
+            .status()?;
+        
+        if !status.success() {
+            return Err(anyhow!("Editor exited with non-zero status"));
+        }
+        Ok(())
+    }
+
     fn get_req(&self, name: &str) -> Result<Request> {
         self.reqs
             .clone()
