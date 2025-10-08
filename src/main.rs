@@ -56,6 +56,12 @@ enum Commands {
 
     /// Lists available environments.
     Envs,
+
+    /// Opens a request file in $EDITOR.
+    Edit {
+        /// The name of the request to edit.
+        request_name: String,
+    },
 }
 
 fn main() -> Result<()> {
@@ -81,6 +87,9 @@ fn main() -> Result<()> {
             for env_name in reqq.list_envs().into_iter() {
                 println!("{}", env_name);
             }
+        }
+        Some(Commands::Edit { request_name }) => {
+            reqq.edit(request_name)?;
         }
         None => {
             let request_name = args.request_name.as_deref().expect("No request name provided.");

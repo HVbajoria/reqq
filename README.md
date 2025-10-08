@@ -53,3 +53,4 @@ engine, so anything that's fair game there is fair game in `.reqq` files.
 - `reqq [--env=<env>] <request>`, executes a request.
 - `reqq list`, lists all available requests.
 - `reqq envs`, lists available envs.
+- `reqq edit <request>`, opens a request file in $EDITOR.
